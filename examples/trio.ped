@@ -1,0 +1,10 @@
+#PED format pedigree
+#
+#fam-id/ind-id/pat-id/mat-id: 0=unknown
+#sex: 1=male; 2=female; 0=unknown
+#phenotype: -9=missing, 0=missing; 1=unaffected; 2=affected
+#
+#fam-id ind-id  pat-id  mat-id  sex     phen
+1	Sample_Diag-excap51-HG002-EEogPU	Sample_Diag-excap51-HG003-EEogPU	Sample_Diag-excap51-HG004-EEogPU	1	2
+1	Sample_Diag-excap51-HG003-EEogPU	0	0	1	0
+1	Sample_Diag-excap51-HG004-EEogPU	0	0	2	0
