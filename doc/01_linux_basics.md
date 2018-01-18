@@ -9,7 +9,7 @@ Linux has been used for a large-scale collaborated research work environment. Ma
 1. For those of you registered for this workshop, we already created a Linux account and in advance sent to each of you credential information to access a Linux network at LRI (Lerner Research Institute).
     1. Linux login account ID/Password
     1. The Linux hostname you want to connect
-        1. `scotch.lerner.ccf.org`
+        1. e.g., `scotch.lerner.ccf.org`
 
 ### 2. Hardwares
 1. Laptop, Desktop, or any device (ssh terminal is available) that Cleveland Clinic approves to connect CCF network
@@ -51,12 +51,13 @@ Linux has been used for a large-scale collaborated research work environment. Ma
 ## Linux commands
 ### 6. The quickest way to learn Linux
 1. Find an old laptop you don't use
-1. Install [a Linux](https://distrowatch.com/) and play with it.
+1. Install [a Linux](https://distrowatch.com/) distro and play with it.
 
 ### 7. Help
 1. You don't have to remember the Linux command all details
+    1. The more you use, the quicker you get familiar with
     1. Help from Linux communities.
-    1. There is a common pattern that every commandline shares with. 
+    1. There is a general pattern which appears in every command line. 
 1. Interaction
     1. Try with simple inputs
     1. See message from terminal
@@ -154,7 +155,7 @@ Linux has been used for a large-scale collaborated research work environment. Ma
     1. Q12a: Create a directory called `projects` under the `$HOME` directory
 1. Task: Preparing the workshop sample files
     1. Q13: Copy our course material data file into `projects`
-        1. `/Informatics_workshop/binf20180119_data.tar.gz`
+        1. `/Informatics_workshop/binf20180119_data.tar.gz` #TODO
         1. Use <tab> key to complete matched words
    1. Extract the tar.gz file
         1. `cd ~/projects`

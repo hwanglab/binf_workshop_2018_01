@@ -15,3 +15,5 @@ ln -s /usr/local/tools/bedtools/bedtools $HOME/bin/
 ln -s /usr/local/tools/fastqc/fastqc $HOME/bin/
 ln -s /usr/local/tools/samtools/samtools $HOME/bin/
 ln -s /Informatics_workshop/tools/annovar/table_annovar.pl $HOME/bin/
+ln -s /Informatics_workshop/tools/qualimap_v2.2.1/qualimap $HOME/bin/
+ln -s $HOME/projects/bioinfo_2018/utils/ucscgtf_to_bed.py $HOME/bin/

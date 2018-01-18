@@ -3,10 +3,10 @@ The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) 
 
 ## 1. Preparing GATK run
 1. Define GATK prefix command
-    1. Q27: Define a prefix command as we did for Picard 
-    1. Q28: Print help command output to see which commands are available
+    1. Q27: This is another java program and define a prefix java command as we did in Picard.
+    1. Q28: Then, using the environment variable, print out help to see which commands are available.
  
-## 2. Recalibrate Alignment ([BQSR](https://docs.google.com/file/d/0B2dK2q40HDWeLTFzNndsNDBuVms/preview))
+## 2. Base Call Recalibrate Alignment ([BQSR](https://docs.google.com/file/d/0B2dK2q40HDWeLTFzNndsNDBuVms/preview))
 1. Objectives
     1. The quality of base calls produced by the machines are subject to various sources of systematic technical error.
     1. It can lead to over- or under-estimated base quality scores in the data, affecting to all downstream analyses.
@@ -14,32 +14,34 @@ The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) 
     1. The program builds a model of covariation based on the data and a set of known variants
     1. It adjusts the base quality scores in the data based on the model.
 
-1. Output    
+1. Example command line
+    ```bash
+$gatk \
+    -T BaseRecalibrator \
+    -R ${REF_FILE} \
+    -I ${ALN}.so.mdup.bam \
+    -knownSites $dbsnp_vcf \
+    -knownSites $mills_vcf \
+    -nct ${NCPU} \
+    -o ${OUTD}/recal_data.table
+    ```
+    
+1. Output
     1. The method refines the base quality to achieve more accurate base qualities.
     1. The result improves the accuracy of our variant calls.
 1. Reference
-    1. [Best Practice](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php)
-    1. [Algorithm](https://docs.google.com/file/d/0B2dK2q40HDWeLTFzNndsNDBuVms/preview)
+    1. [Best Practice](https://gatkforums.broadinstitute.org/gatk/discussion/44/base-quality-score-recalibration-bqsr)
 
-## 3. [Haplotype Caller](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_haplotypecaller_HaplotypeCaller.php)
+## 3. [Haplotype Caller](https://gatkforums.broadinstitute.org/gatk/discussion/2803/howto-call-variants-with-haplotypecaller)
 1. Objectives
     1. This is the most essential algorithm of the pipeline to achieve the most accurate sensitive variant calls.
 1. Method
     1. Given BAM file, the program builds a De Bruijn-like graph to reassemble genomic regions of interest, and identifies what are the possible haplotypes present in the data.
     1. The program then realigns each haplotype against the reference haplotype using the Smith-Waterman algorithm in order to identify potentially variant sites.
-1. Example command line
-    ```bash
-    $gatk \
-        -T HaplotypeCaller \
-        -R ${REF_FILE} \
-        -I ${ALN}.so.mdup.br.bam \
-        --genotyping_mode DISCOVERY \
-        --dbsnp $dbsnp_vcf \
-        -stand_call_conf 30 \
-        -nct ${NCPU} \
-        -o ${OUTD}/gatkhc.vcf
-    ```
-## 4. [Variant Recalibrator](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_variantrecalibration_VariantRecalibrator.php)
+    1. PairHMM to determine likelihood of the haploytpes
+1. [Reference](https://gatkforums.broadinstitute.org/gatk/discussion/4148/hc-overview-how-the-haplotypecaller-works)
+
+## 4. [Variant Recalibrator](https://software.broadinstitute.org/gatk/documentation/article?id=39)
 1. Objective
     1. To build a recalibration model to score variant quality for filtering purposes
 1. Method
@@ -53,9 +55,14 @@ The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) 
 ## 5. Batch Script from BWA mem to GATK HC caller
 1. `tmux`
 1. `binf`
-1. View `bwa_gatk_lite.sh` and see if you can understand the script
+1. Complete the bash shell script and run it
+    1. Open `bwa_gatk_lite_Q28a.sh`
+    1. Search Q28a and complete a part of GATK commandline.
+    1. Save as `bwa_gatk_lite2.sh`
+       
     ```bash
     3 min
     ```
-1. `./bwa_gatk_lite.sh chr7a chr7`
+1. Compare your command line with `./bwa_gatk_lite.sh`
+1. `./bwa_gatk_lite2.sh chr7a chr7`
 1. `ctrl+b` and `d` # to detach the tmux window

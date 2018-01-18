@@ -1,29 +1,30 @@
-#1. Alignments
-Depending on the sequencing technology and applications, we can choose an appropriate alignment program. For example, several alignment software are available depending on read length, molecule type (DNA or RNA), transcriptome (gene expression) analysis, variant calls, alignment of a short read against a reference genome sequence, or alignment between two FASTA format sequence.
+# 1. Alignments
+Depending on the sequencing technology and applications, we can choose an appropriate alignment program. For example, several alignment software is available depending on read length, molecule type (DNA or RNA), transcriptome (gene expression) analysis, variant calls, alignment of a short read against a reference genome sequence, or alignment between two FASTA format sequence.
 
 In this section, we introduce an NGS short aligner (BWA).
 
-##2. BWA for short DNA sequencing reads
-Most short-read alignment algorithms follow the common procedures such as 1) building an index for a referece target genome sequence, 2) find multiple seed locations (lookup table), 3) extending seeds, 4) pairwise alignment, and 5) selecting the optimal solutions. The first two steps are the most critical in terms of speed and accuracy. [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) employes Burrows–Wheeler transform (BWT) algorithm that it uses suffix arrays that efficiently stores dynamic size of k-mers for a large genome sequence. Refer to the [publications](https://arxiv.org/pdf/1303.3997.pdf) for more technical details.
+## 2. BWA for short DNA sequencing reads
+Most short-read alignment algorithms follow the general procedures such as 1) building an index for a reference target genome sequence, 2) find multiple seed locations (lookup table), 3) extending seeds, 4) pairwise alignment, and 5) selecting the optimal solutions. The first two steps are the most critical regarding speed and accuracy. [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) employes Burrows-Wheeler transform (BWT) algorithm that it uses suffix arrays that efficiently stores the dynamic size of k-mers for a large genome sequence. Refer to the [publications](https://arxiv.org/pdf/1303.3997.pdf) for more technical details.
 
 ## Indexing, indexing, and indexing a target reference genome sequence FASTA file 
-###3. Prepare BWT index
-First, BWT index is required for a reference genome sequence before we actually align fastq files to the genome sequence.
+### 3. Prepare BWT index
+First, BWT index is required for a reference genome sequence before we align FASTQ files to the genome sequence.
 1. `binf` and `cd ref`
 1. `bwa index` #help for `bwa` subcommand `index`
 1. `mkdir ./ref/bwa` #prepare bwa index directory
 1. `bwa index -p bwa/chr7 chr7.fa`
 1. Q18c: to check which files are created
 
-###4. Prepare FASTA index file containing the sequence length 
+### 4. Prepare FASTA index file containing the sequence length 
 1. `samtools faidx chr7.fa` # we will revisit `samtools` again later
 1. Q19: Check if an index file is successfully created
 
-###5. Prepare FASTA dictionary file also containing the sequence length but used by Picard
+### 5. Prepare FASTA dictionary file also containing the sequence length but used by Picard
 1. make sure that `java` is in your $PATH
     1. `which java`
     1. `java -v`
-1. `picard="java -Xmx4g -Djava.io.tmpdir=${HOME}/tmp -jar ${HOME}/bin/picard.jar"`
+1. define `picard` java command prefix
+    1. `picard="java -Xmx4g -Djava.io.tmpdir=${HOME}/tmp -jar ${HOME}/bin/picard.jar"`
     1. Picard is a java program. Many java program commands starts this format.
     1. heap memory size
     1. a temporary directory
@@ -40,7 +41,7 @@ First, BWT index is required for a reference genome sequence before we actually 
     $picard CreateSequenceDictionary R=${REF_FILE} O=${REF_PREFIX}.dict
     ``` 
 
-###6. If statement in bash
+### 6. If statement in bash
 1. We want to make sure that if a file necessary in a pipeline script exists. Otherwise, we exit the program run.
     ```bash
     # We assume that this script runs at $HOME/projects/bioinfo_2018
@@ -62,10 +63,10 @@ First, BWT index is required for a reference genome sequence before we actually 
     ```
 
 ## BWA mem
-###7. Explore BWA mem commandline options
+### 7. Explore BWA mem commandline options
 1. `bwa mem` #help menu for subcommand `mem`
-1. [] means "optional"
-1. <> means "required"
+1. [*] means "optional"
+1. <*> means "required"
 ```commandline
 Usage: bwa mem [options] <idxbase> <in1.fq> [in2.fq]
 Algorithm options:
@@ -119,8 +120,8 @@ Input/output options:
                      FR orientation only. [inferred]
 ```
 
-###8. BWA mem command for paired-end DNA sequencing reads 
-1. -R (read group): It is okay to run bwa without read group but it is necessary when we run Picard and GATK SNP caller with many other samples to compare with.
+### 8. BWA mem command for paired-end DNA sequencing reads 
+1. -R (read group): It is okay to run BWA without read group, but it is necessary when we run Picard and GATK SNP caller with the other samples.
     1. ID: Read group identifier containg a flowcell ID and a lane ID
     1. SM: Sample ID
     1. PL: Platform/technology used to produce the read

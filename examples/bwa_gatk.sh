@@ -63,6 +63,7 @@ echo "samtools sort ${ALN}.bam -o ${ALN}.so.bam"
 samtools sort ${ALN}.bam -o ${ALN}.so.bam
 
 echo "Deleting ${ALN}.bam"
+# rm -rf ${ALN}.bam
 
 echo "Dedeuping ..."
 echo "$picard MarkDuplicates I=${ALN}.so.bam O=${ALN}.so.mdup.bam M=${ALN}.so.mdup.table"
@@ -112,7 +113,7 @@ samtools view -hb -q 5 -F 0x400 ${ALN}.so.mdup.bam | bedtools coverage -hist -b 
 #
 # $picard CollectWgsMetricsWithNonZeroCoverage I=${ALN}.so.mdup.bam INTERVALS=${GAT}.ilist O=${ALN}.so.mdup.bam.ga.stats CHART=${ALN}.so.mdup.bam.ga.stats.pdf R=${REF_FILE}
 
-gatk="java -Djava.io.tmpdir=${HOME}/tmp -Xmx4G -jar ${HOME}/bin/gatk.jar"
+gatk="java -Djava.io.tmpdir=${HOME}/tmp -Xmx4G -jar ${HOME}/bin/GenomeAnalysisTK.jar"
 GATKDB=/Informatics_workshop/reference/GATK_known_bundle
 dbsnp_vcf=${GATKDB}/dbsnp_138.hg19_no_chr.vcf
 hapmap_vcf=${GATKDB}/hapmap_3.3.hg19.sites_no_chr.vcf
@@ -259,9 +260,9 @@ $gatk \
 
 echo " ====================="
 echo "ANNOVAR ..."
-
+ANNOVAR_DIR=/Informatics_workshop/tools/annovar
 # Annotate with Annovar
-$ANNOVAR_DIR/table_annovar.pl ${OUTD}/gatkhc_vr.vcf $ANNOVAR_DIR/humandb/ -buildver hg19 -out ${OUTD}/gatkhc_vr.vcf.annovar -remove -protocol refGene,cytoBand,genomicSuperDups,esp6500siv2_all,1000g2015aug_all,1000g2015aug_eur,exac03,avsnp147,dbnsfp30a,cosmic80 -operation g,r,r,f,f,f,f,f,f,f -nastring . -vcfinput
+$ANNOVAR_DIR/table_annovar.pl ${OUTD}/gatkhc_vr.vcf $ANNOVAR_DIR/humandb/ -buildver hg19 -out ${OUTD}/gatkhc_vr.annovar -remove -protocol refGene,cytoBand,genomicSuperDups,esp6500siv2_all,1000g2015aug_all,1000g2015aug_eur,exac03,avsnp147,dbnsfp30a,cosmic80 -operation g,r,r,f,f,f,f,f,f,f -nastring . -vcfinput
 
 echo "Check [${ALN}.so.mdup.br.hc_filt.annovar]"
 echo "Done."
