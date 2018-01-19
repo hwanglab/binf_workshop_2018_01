@@ -1,12 +1,12 @@
 # A Simple GATK Variant Call Workflow
-The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) has been developed in Broad Institute, identifying SNPs and indels in germline DNA and RNAseq data. Its scope is now expanding to include somatic variant calling tools and to tackle copy number (CNV) and structure variation (SV).  Refer to three original manuscripts published in early 2010's that cover both computational foundations underlying the GATK and "best practice" to tackle many practical issues.
+The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) has been developed in Broad Institute, identifying SNPs and indels in germline DNA and RNAseq data. Its scope is now expanding to include somatic variant calling tools and to tackle copy number (CNV) and structure variation (SV).  Refer to three original [manuscripts](http://dx.doi.org/10.1038/ng.806) published in early 2010's that cover both computational foundations underlying the GATK and "best practice" to tackle many practical issues.
 
 ## 1. Preparing GATK run
 1. Define GATK prefix command
     1. Q27: This is another java program and define a prefix java command as we did in Picard.
     1. Q28: Then, using the environment variable, print out help to see which commands are available.
  
-## 2. Base Call Recalibrate Alignment ([BQSR](https://docs.google.com/file/d/0B2dK2q40HDWeLTFzNndsNDBuVms/preview))
+## 2. Base Call Recalibrate Alignment (BQSR)
 1. Objectives
     1. The quality of base calls produced by the machines are subject to various sources of systematic technical error.
     1. It can lead to over- or under-estimated base quality scores in the data, affecting to all downstream analyses.
@@ -15,16 +15,16 @@ The [GATK](https://software.broadinstitute.org/gatk/) (Genome Analysis Toolkit) 
     1. It adjusts the base quality scores in the data based on the model.
 
 1. Example command line
-    ```bash
+```bash
 $gatk \
-    -T BaseRecalibrator \
-    -R ${REF_FILE} \
-    -I ${ALN}.so.mdup.bam \
-    -knownSites $dbsnp_vcf \
-    -knownSites $mills_vcf \
-    -nct ${NCPU} \
-    -o ${OUTD}/recal_data.table
-    ```
+-T BaseRecalibrator \
+-R ${REF_FILE} \
+-I ${ALN}.so.mdup.bam \
+-knownSites $dbsnp_vcf \
+-knownSites $mills_vcf \
+-nct ${NCPU} \
+-o ${OUTD}/recal_data.table
+```
     
 1. Output
     1. The method refines the base quality to achieve more accurate base qualities.
@@ -59,10 +59,9 @@ $gatk \
     1. Open `bwa_gatk_lite_Q28a.sh`
     1. Search Q28a and complete a part of GATK commandline.
     1. Save as `bwa_gatk_lite2.sh`
-       
-    ```bash
-    3 min
-    ```
+```bash
+3 min
+```
 1. Compare your command line with `./bwa_gatk_lite.sh`
 1. `./bwa_gatk_lite2.sh chr7a chr7`
 1. `ctrl+b` and `d` # to detach the tmux window

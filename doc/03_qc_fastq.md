@@ -65,7 +65,7 @@ Depending on an application or sequencing option, you may need to preprocess seq
     1. Run TrimGalore on `sample4qc.R?_001.fastq.gz`
     1. Check TrimGalore output
  
-###11. List FASTQ files to work with (Optional)
+### 11. List FASTQ files to work with (Optional)
 1. `binf`
 1. `ls fastq/*R?_001.fastq.gz`
     1. the subdirectory `fastq` under the current directory contains FASTQ files.

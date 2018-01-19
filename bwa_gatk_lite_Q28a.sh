@@ -160,7 +160,7 @@ echo "GATK:HaplotypeCaller ..."
 # 1) set 'DISCOVERY' in an argument option 'genotype_mode'
 # 2) set '30' in an argument option 'stand_call_conf'
 # 3) use dbsnp_vcf defined above to annotate rsid in an ouptut VCF file
-
+# Hint: https://gatkforums.broadinstitute.org/gatk/discussion/2803/howto-call-variants-with-haplotypecaller
 
 
 

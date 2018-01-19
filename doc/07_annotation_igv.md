@@ -10,7 +10,7 @@
 1. View our GATK output VCF file
     1. `tmux attach`
 	1. check if the bash shell script run was successful
-	1. cd fastq/chr7a
+	1. `fastq; cd chr7a`
     1. `less -S gatkhc_filt.vcf`
     1. Q29: Find a line something like 
         ```bash
@@ -61,12 +61,12 @@
 1. Locate the second FASTQ file
     1. `l $HOME/projects/bioinfo_2018/fastq/chr7b.*.fastq.gz`
 1. Run FastQC program to check the quality of FASTQ files
-1. Modify GATK HaplotypeCaller in `bwa_gatk_lite.sh` to update BAM file
+1. Modify GATK HaplotypeCaller in `bwa_gatk_lite.sh` to obtain a updated BAM file
 1. Perform a structure variant analysis using a program called, `shear`
-    1. Download [`shear`]((http://vk.cs.umn.edu/SHEAR/download.php?v=1.1.2))
+    1. Download [`shear`](http://vk.cs.umn.edu/SHEAR/download.php?v=1.1.2)
     1. Check an installatin or README file to check the requirement
     1. Install
     1. Run `shear` on the sample to obtain a potential structure variant location
     1. Once you debug each command line, write it into a batch shell script.
-1. Load two BAM files derived from chr7a*.fastq.gz and chr7b.fastq.gz respectively
-1. Find shear report file and type a gene name that potentially contains a structure variation in IGV search bar to see how two BAM read pileups are different each other. 
+1. Load two BAM files derived from `chr7a*.fastq.gz` and `chr7b.fastq.gz` respectively
+1. Find `shear` report file and type a gene name that potentially contains a structure variation in IGV search bar to see how two BAM read pileups are different each other. 
