@@ -54,6 +54,8 @@
     1. Familial samples
 1. run GATK bash script
     1. `binf`; `cd examples`
+    1. make sure that unzip `trio.vcf.gz`
+    1. Open `vatk_gt_refinment.sh` and remove lines containing `-L 2,6,22 \` if it exists.
     1. `./gatk_gt_refinement.sh trio trio.ped`
     1. `grep PossibleDenovo trio.cgp.filt.denovo.vcf | less -S`
 
